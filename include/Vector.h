@@ -132,6 +132,25 @@ namespace grain
 	}
 
 	template <class T>
+	T& Vector<T>::operator[](std::size_t index)
+	{
+		if(index < size)
+			return elements[index];
+		else
+			throw std::out_of_range("Index out of range");
+	}
+
+	template <class T>
+	const T& Vector<T>::operator[](std::size_t index) const
+	{
+		if(index < size)
+			return elements[index];
+		else
+			throw std::out_of_range("Index out of range");
+	}
+	
+
+	template <class T>
 	T Vector<T>::dot(const Vector<T> &rhs)
 	{
 		if(this->size != rhs.size)
