@@ -98,7 +98,7 @@ namespace grain
 	template <class T>
 	Vector<T>::Vector()
 	{
-		elements();
+		elements = std::vector<T>();
 	}
 
 	template <class T>

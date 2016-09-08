@@ -6,7 +6,7 @@ include_directories(${CMAKE_CURRENT_SOURCE_DIR})
 set (CMAKE_BUILD_TYPE Release)
 set (CMAKE_LIBRARY_DIR ${CMAKE_SOURCE_DIR}/lib)
 set (CMAKE_BINARY_DIR ${CMAKE_SOURCE_DIR}/bin)
-set (EXECUTABLE_OUTPUT_PATH ${CMAKE_SOURCE_DIR}/lib)
+set (EXECUTABLE_OUTPUT_PATH ${CMAKE_BINARY_DIR})
 set (LIBRARY_OUTPUT_PATH ${CMAKE_LIBRARY_DIR})
 
 add_compile_options(-std=c++11 -g -Wall)
@@ -29,6 +29,10 @@ set_target_properties(${PROJECT_NAME} PROPERTIES LINKER_LANGUAGE CXX)
 add_library(${PROJECT_NAME}_static STATIC ${PROJECT_SRCS})
 set_target_properties(${PROJECT_NAME}_static PROPERTIES LINKER_LANGUAGE CXX)
 
-add_executable(mainTest ${PROJECT_SOURCE_DIR}/test/main.cpp)
+find_package(GTest REQUIRED)
+include_directories(${GTEST_INCLUDE_DIRS})
+
+add_executable(runTests test/vector.cpp)
+target_link_libraries(runTests ${GTEST_LIBRARIES} pthread)
 
 
