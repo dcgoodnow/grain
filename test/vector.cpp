@@ -84,6 +84,27 @@ TEST_F(VectorTest, ScalarProduct)
    ASSERT_EQ(result[3], 10);
 }
 
+TEST_F(VectorTest, CopyConstructor)
+{
+   Vector<double> copied(v3);
+   ASSERT_EQ(copied[0], v3[0]);
+   ASSERT_EQ(copied[1], v3[1]);
+   ASSERT_EQ(copied[2], v3[2]);
+   ASSERT_EQ(copied[3], v3[3]);
+   v3[2] = 7;
+   ASSERT_NE(copied[2], v3[2]);
+}
+TEST_F(VectorTest, AssignmentOp)
+{
+   Vector<double> copied = v3;
+   ASSERT_EQ(copied[0], v3[0]);
+   ASSERT_EQ(copied[1], v3[1]);
+   ASSERT_EQ(copied[2], v3[2]);
+   ASSERT_EQ(copied[3], v3[3]);
+   v3[2] = 7;
+   ASSERT_NE(copied[2], v3[2]);
+}
+
 int main(int argc, char **argv)
 {
 	::testing::InitGoogleTest(&argc, argv);

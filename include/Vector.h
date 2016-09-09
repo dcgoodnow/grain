@@ -79,6 +79,11 @@ namespace grain
 		//////////////////////
 		public:
 
+		   //
+		   // Assignment operator.
+		   //
+		   Vector<T>& operator=(const Vector<T> &other);
+
 			//
 			//	Gets/Sets the value at the index;
 			//
@@ -142,6 +147,14 @@ namespace grain
 		else
 			throw std::out_of_range("Index out of range");
 	}
+
+	template <class T>
+	Vector<T>& Vector<T>::operator=(const Vector<T> &other)
+   {
+      this->size = other.size;
+      this->elements = std::vector<T>(other.elements);
+      return *this;
+   }
 
 	template <class T>
 	T& Vector<T>::operator[](std::size_t index)
