@@ -26,6 +26,11 @@ namespace grain
 			Vector();
 
 			//
+			// Copy Constructor.
+			//
+			Vector(const Vector<T> &other);
+
+			//
 			//	Constructor with size information.
 			//
 			Vector(std::size_t size);
@@ -62,7 +67,7 @@ namespace grain
 			//
 			//	Dot product.
 			//
-			T dot(const Vector<T> &rhs);
+			T dot(const Vector<T> &rhs) const;
 
 			//
 			//	Cross product.
@@ -100,6 +105,13 @@ namespace grain
 	{
 		elements = std::vector<T>();
 	}
+
+	template <class T>
+	Vector<T>::Vector(const Vector<T> &other)
+   {
+      size = other.size;
+      elements = std::vector<T>(other.elements);
+   }
 
 	template <class T>
 	Vector<T>::Vector(std::size_t size) :
@@ -151,7 +163,7 @@ namespace grain
 	
 
 	template <class T>
-	T Vector<T>::dot(const Vector<T> &rhs)
+	T Vector<T>::dot(const Vector<T> &rhs) const
 	{
 		if(this->size != rhs.size)
 			throw IncompatibleSizeException(this->size, rhs.size);
@@ -173,19 +185,23 @@ namespace grain
 	template <class T>
 	Vector<T> Vector<T>::operator*(double scalar)
 	{
-		for(T& element : elements)
+	   Vector<T> result(*this);
+		for(T& element : result.elements)
 		{
 			element = element * scalar;
 		}
+		return result;
 	}
 
 	template <class T>
 	Vector<T> operator*(double scalar, const Vector<T> &rhs)
 	{
-		for(T& element : rhs.elements)
+	   Vector<T> result(rhs);
+		for(T& element : result.elements)
 		{
 			element = element * scalar;
 		}
+		return result;
 	}
 
 	template <class T>
