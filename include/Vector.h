@@ -12,6 +12,7 @@
 #include <vector>
 #include <stdexcept>
 #include <include/IncompatibleSizeException.h>
+#include <math.h>
 
 namespace grain
 {
@@ -73,6 +74,11 @@ namespace grain
 			//	Cross product.
 			//
 			T cross(const Vector<T> &rhs);
+
+			//
+			// Returns the length of the vector.
+			//
+			T length();
 
 		//////////////////////
 		//Operator Overloads//
@@ -193,6 +199,17 @@ namespace grain
 	T Vector<T>::cross(const Vector<T> &rhs)
 	{
 		throw NotImplementedException();
+	}
+
+	template <class T>
+	T Vector<T>::length()
+	{
+		T sum = T(0);
+		for(T element : elements)
+		{
+			sum += element * element;
+		}
+		return sqrt(sum);
 	}
 
 	template <class T>

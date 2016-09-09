@@ -105,6 +105,11 @@ TEST_F(VectorTest, AssignmentOp)
    ASSERT_NE(copied[2], v3[2]);
 }
 
+TEST_F(VectorTest, Length)
+{
+   ASSERT_DOUBLE_EQ(v4.length(), 6.2449979983983983);
+}
+
 int main(int argc, char **argv)
 {
 	::testing::InitGoogleTest(&argc, argv);
