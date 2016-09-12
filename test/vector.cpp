@@ -110,6 +110,33 @@ TEST_F(VectorTest, Length)
    ASSERT_DOUBLE_EQ(v4.length(), 6.2449979983983983);
 }
 
+TEST_F(VectorTest, Normalize)
+{
+	v4.normalize();
+	ASSERT_NEAR(v4[0], .160128154, .0001);
+	ASSERT_NEAR(v4[1], .800640769, .0001);
+	ASSERT_NEAR(v4[2], .320256308, .0001);
+	ASSERT_NEAR(v4[3], .480384461, .0001);
+}
+
+TEST_F(VectorTest, Addition)
+{
+	Vector<double> result = v3 + v4;
+	ASSERT_EQ(result[0], 1);
+	ASSERT_EQ(result[1], 4.6);
+	ASSERT_EQ(result[2], 4);
+	ASSERT_EQ(result[3], 8);
+}
+
+TEST_F(VectorTest, Subtraction)
+{
+	Vector<double> result = v3 - v4;
+	ASSERT_EQ(result[0], -1);
+	ASSERT_EQ(result[1], -5.4);
+	ASSERT_EQ(result[2], 0);
+	ASSERT_EQ(result[3], 2);
+}
+
 int main(int argc, char **argv)
 {
 	::testing::InitGoogleTest(&argc, argv);

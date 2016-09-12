@@ -78,7 +78,12 @@ namespace grain
 			//
 			// Returns the length of the vector.
 			//
-			T length();
+			T length() const;
+
+			//
+			//	Normalizes the vector. 
+			// 
+			void normalize();
 
 		//////////////////////
 		//Operator Overloads//
@@ -89,6 +94,16 @@ namespace grain
 		   // Assignment operator.
 		   //
 		   Vector<T>& operator=(const Vector<T> &other);
+
+		   //
+		   //	Addition operator.
+		   //
+		   Vector<T> operator+(const Vector<T> &rhs);
+
+		   //
+		   //	Subtraction operator.
+		   //
+		   Vector<T> operator-(const Vector<T> &rhs);
 
 			//
 			//	Gets/Sets the value at the index;
@@ -162,6 +177,34 @@ namespace grain
       return *this;
    }
 
+   template <class T>
+	Vector<T> Vector<T>::operator+(const Vector<T> &rhs)
+	{
+		if(this->size != rhs.size)
+			throw IncompatibleSizeException(this->size, rhs.size);
+
+		Vector<T> result(this->size);
+		for(size_t i = 0; i < this->size; ++i)
+		{
+			result[i] = elements[i] + rhs[i];
+		}
+		return result;
+	}
+
+   template <class T>
+	Vector<T> Vector<T>::operator-(const Vector<T> &rhs)
+	{
+		if(this->size != rhs.size)
+			throw IncompatibleSizeException(this->size, rhs.size);
+
+		Vector<T> result(this->size);
+		for(size_t i = 0; i < this->size; ++i)
+		{
+			result[i] = elements[i] - rhs[i];
+		}
+		return result;
+	}
+
 	template <class T>
 	T& Vector<T>::operator[](std::size_t index)
 	{
@@ -188,7 +231,7 @@ namespace grain
 			throw IncompatibleSizeException(this->size, rhs.size);
 
 		T result = T(0);
-		for(int i = 0; i < this->size; ++i)
+		for(size_t i = 0; i < this->size; ++i)
 		{
 			result = result + (elements[i] * rhs.elements[i]);
 		}
@@ -202,7 +245,7 @@ namespace grain
 	}
 
 	template <class T>
-	T Vector<T>::length()
+	T Vector<T>::length() const
 	{
 		T sum = T(0);
 		for(T element : elements)
@@ -210,6 +253,17 @@ namespace grain
 			sum += element * element;
 		}
 		return sqrt(sum);
+	}
+
+	template <class T>
+	void Vector<T>::normalize()
+	{
+		T l = this->length();
+
+		for(T& element : elements)
+		{
+			element = element / l;
+		}
 	}
 
 	template <class T>
